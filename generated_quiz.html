@@ -1,0 +1,307 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: white;
+                background-color: #121212;
+            }
+            .quiz-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .question {
+                margin-bottom: 30px;
+                padding: 20px;
+                border: 1px solid #444;
+                border-radius: 10px;
+                background-color: #1e1e2f;
+            }
+            .question h3 {
+                margin-top: 0;
+                color: #90caf9;
+            }
+            .options {
+                margin-left: 10px;
+            }
+            .option {
+                margin: 10px 0;
+                padding: 12px;
+                border: 1px solid #555;
+                border-radius: 6px;
+                cursor: pointer;
+                background-color: #2d2d44;
+                transition: background-color 0.2s;
+            }
+            .option:hover {
+                background-color: #3a3a5a;
+            }
+            .reveal-btn {
+                background-color: #2196f3;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+                margin-top: 15px;
+                transition: background-color 0.2s;
+            }
+            .reveal-btn:hover {
+                background-color: #0d8bf2;
+            }
+            .answer-section {
+                margin-top: 20px;
+                border: 2px solid #ffeb3b;
+                border-radius: 8px;
+                padding: 0;
+                overflow: hidden;
+                display: none;
+            }
+            .answer-header {
+                background-color: #ffeb3b;
+                color: #000;
+                padding: 10px;
+                font-weight: bold;
+                font-size: 16px;
+                text-align: center;
+            }
+            .answer-content {
+                padding: 15px;
+                background-color: #1a237e;
+            }
+            .correct-answer {
+                font-size: 18px;
+                font-weight: bold;
+                color: white;
+                margin-bottom: 15px;
+            }
+            .explanation {
+                color: #e1f5fe;
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            .selected-correct {
+                background-color: #1b5e20 !important;
+                border-color: #4caf50 !important;
+            }
+            .selected-incorrect {
+                background-color: #b71c1c !important;
+                border-color: #f44336 !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="quiz-container">
+            <h2 style="color: #2196f3; text-align: center; margin-bottom: 30px;">Interactive Quiz</h2>
+    
+            <div class="question" id="question-1">
+                <h3>Question 1</h3>
+                <p>What is the value of x in the equation 2x + 5 = 11?</p>
+                <div class="options">
+        
+                    <div class="option" id="option-1-0" onclick="selectOption(1, 0, false)">
+                        <strong>A.</strong> 2
+                    </div>
+            
+                    <div class="option" id="option-1-1" onclick="selectOption(1, 1, true)">
+                        <strong>B.</strong> 3
+                    </div>
+            
+                    <div class="option" id="option-1-2" onclick="selectOption(1, 2, false)">
+                        <strong>C.</strong> 4
+                    </div>
+            
+                    <div class="option" id="option-1-3" onclick="selectOption(1, 3, false)">
+                        <strong>D.</strong> 5
+                    </div>
+            
+                </div>
+                <button class="reveal-btn" onclick="revealAnswer(1)">SHOW ANSWER</button>
+                <div class="answer-section" id="answer-1">
+                    <div class="answer-header">CORRECT ANSWER</div>
+                    <div class="answer-content">
+                        <div class="correct-answer">B. 3</div>
+                        <div class="explanation">To find the value of x, we need to isolate x on one side of the equation. Subtracting 5 from both sides gives 2x = 6, and then dividing both sides by 2 gives x = 3.</div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="question" id="question-2">
+                <h3>Question 2</h3>
+                <p>What is the shape with four right angles and four sides of equal length called?</p>
+                <div class="options">
+        
+                    <div class="option" id="option-2-0" onclick="selectOption(2, 0, true)">
+                        <strong>A.</strong> Square
+                    </div>
+            
+                    <div class="option" id="option-2-1" onclick="selectOption(2, 1, false)">
+                        <strong>B.</strong> Rectangle
+                    </div>
+            
+                    <div class="option" id="option-2-2" onclick="selectOption(2, 2, false)">
+                        <strong>C.</strong> Triangle
+                    </div>
+            
+                    <div class="option" id="option-2-3" onclick="selectOption(2, 3, false)">
+                        <strong>D.</strong> Circle
+                    </div>
+            
+                </div>
+                <button class="reveal-btn" onclick="revealAnswer(2)">SHOW ANSWER</button>
+                <div class="answer-section" id="answer-2">
+                    <div class="answer-header">CORRECT ANSWER</div>
+                    <div class="answer-content">
+                        <div class="correct-answer">A. Square</div>
+                        <div class="explanation">A square is a quadrilateral with four right angles and four sides of equal length. This is the defining characteristic of a square, making it the correct answer.</div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="question" id="question-3">
+                <h3>Question 3</h3>
+                <p>What is the result of 6 - 3 + 2?</p>
+                <div class="options">
+        
+                    <div class="option" id="option-3-0" onclick="selectOption(3, 0, false)">
+                        <strong>A.</strong> 3
+                    </div>
+            
+                    <div class="option" id="option-3-1" onclick="selectOption(3, 1, false)">
+                        <strong>B.</strong> 4
+                    </div>
+            
+                    <div class="option" id="option-3-2" onclick="selectOption(3, 2, true)">
+                        <strong>C.</strong> 5
+                    </div>
+            
+                    <div class="option" id="option-3-3" onclick="selectOption(3, 3, false)">
+                        <strong>D.</strong> 6
+                    </div>
+            
+                </div>
+                <button class="reveal-btn" onclick="revealAnswer(3)">SHOW ANSWER</button>
+                <div class="answer-section" id="answer-3">
+                    <div class="answer-header">CORRECT ANSWER</div>
+                    <div class="answer-content">
+                        <div class="correct-answer">C. 5</div>
+                        <div class="explanation">To evaluate this expression, we need to follow the order of operations. First, subtract 3 from 6 to get 3, and then add 2 to get 5.</div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="question" id="question-4">
+                <h3>Question 4</h3>
+                <p>What is the fraction 1/2 equivalent to as a decimal?</p>
+                <div class="options">
+        
+                    <div class="option" id="option-4-0" onclick="selectOption(4, 0, false)">
+                        <strong>A.</strong> 0.2
+                    </div>
+            
+                    <div class="option" id="option-4-1" onclick="selectOption(4, 1, true)">
+                        <strong>B.</strong> 0.5
+                    </div>
+            
+                    <div class="option" id="option-4-2" onclick="selectOption(4, 2, false)">
+                        <strong>C.</strong> 0.8
+                    </div>
+            
+                    <div class="option" id="option-4-3" onclick="selectOption(4, 3, false)">
+                        <strong>D.</strong> 1.0
+                    </div>
+            
+                </div>
+                <button class="reveal-btn" onclick="revealAnswer(4)">SHOW ANSWER</button>
+                <div class="answer-section" id="answer-4">
+                    <div class="answer-header">CORRECT ANSWER</div>
+                    <div class="answer-content">
+                        <div class="correct-answer">B. 0.5</div>
+                        <div class="explanation">To convert the fraction 1/2 to a decimal, we divide the numerator by the denominator. 1 divided by 2 equals 0.5, making this the correct answer.</div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="question" id="question-5">
+                <h3>Question 5</h3>
+                <p>If a pencil is 15 cm long and it is divided into 5 parts, how long is each part?</p>
+                <div class="options">
+        
+                    <div class="option" id="option-5-0" onclick="selectOption(5, 0, false)">
+                        <strong>A.</strong> 1 cm
+                    </div>
+            
+                    <div class="option" id="option-5-1" onclick="selectOption(5, 1, false)">
+                        <strong>B.</strong> 2 cm
+                    </div>
+            
+                    <div class="option" id="option-5-2" onclick="selectOption(5, 2, true)">
+                        <strong>C.</strong> 3 cm
+                    </div>
+            
+                    <div class="option" id="option-5-3" onclick="selectOption(5, 3, false)">
+                        <strong>D.</strong> 5 cm
+                    </div>
+            
+                </div>
+                <button class="reveal-btn" onclick="revealAnswer(5)">SHOW ANSWER</button>
+                <div class="answer-section" id="answer-5">
+                    <div class="answer-header">CORRECT ANSWER</div>
+                    <div class="answer-content">
+                        <div class="correct-answer">C. 3 cm</div>
+                        <div class="explanation">To find the length of each part, we divide the total length of the pencil by the number of parts. 15 cm divided by 5 equals 3 cm, making this the correct answer.</div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <script>
+            function selectOption(questionNum, optionNum, isCorrect) {
+                const questionId = `question-${questionNum}`;
+                const options = document.querySelectorAll(`#${questionId} .option`);
+                
+                // Reset all options
+                options.forEach(option => {
+                    option.className = 'option';
+                });
+                
+                // Highlight selected option
+                const selectedOption = document.getElementById(`option-${questionNum}-${optionNum}`);
+                if (isCorrect) {
+                    selectedOption.className = 'option selected-correct';
+                } else {
+                    selectedOption.className = 'option selected-incorrect';
+                    // Show answer if incorrect
+                    revealAnswer(questionNum);
+                }
+            }
+            
+            function revealAnswer(questionNum) {
+                const answerDiv = document.getElementById(`answer-${questionNum}`);
+                answerDiv.style.display = 'block';
+                
+                // Scroll to answer
+                setTimeout(() => {
+                    answerDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+                
+                // Add animation for attention
+                answerDiv.animate([
+                    { transform: 'scale(1)', boxShadow: '0 0 0 rgba(255, 235, 59, 0)' },
+                    { transform: 'scale(1.03)', boxShadow: '0 0 20px rgba(255, 235, 59, 0.7)' },
+                    { transform: 'scale(1)', boxShadow: '0 0 10px rgba(255, 235, 59, 0.3)' }
+                ], {
+                    duration: 1000,
+                    iterations: 1
+                });
+            }
+        </script>
+    </body>
+    </html>
+    

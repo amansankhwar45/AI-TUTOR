@@ -1,5 +1,5 @@
 from langchain_groq import ChatGroq
-from langchain.schema import HumanMessage
+from langchain_core.messages import HumanMessage
 import os
 from dotenv import load_dotenv
 import json
@@ -15,11 +15,112 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+def get_theme_css(theme_name):
+    if theme_name == "Light Minimalist":
+        return """
+        <style>
+        .stApp {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        section[data-testid="stSidebar"] {
+            background-color: #ffffff;
+            border-right: 1px solid #dee2e6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50 !important;
+            font-family: 'Inter', sans-serif;
+            text-shadow: none;
+        }
+        .stButton>button {
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .stButton>button:hover {
+            background-color: #2563eb;
+            transform: none;
+            box-shadow: none;
+        }
+        .stTextInput>div>div>input, .stSelectbox>div>div>div {
+            background-color: #ffffff !important;
+            color: #212529 !important;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+        }
+        </style>
+        """
+    elif theme_name == "Professional Navy":
+        return """
+        <style>
+        .stApp {
+            background-color: #ffffff;
+            color: #0d47a1;
+        }
+        section[data-testid="stSidebar"] {
+            background-color: #f1f3f4;
+            border-right: 1px solid #dae0e5;
+        }
+        h1, h2, h3 {
+            color: #0d47a1 !important;
+            font-family: 'Georgia', serif;
+        }
+        .stButton>button {
+            background-color: #1a237e;
+            color: white;
+            border-radius: 4px;
+        }
+        .stButton>button:hover {
+            background-color: #283593;
+        }
+        </style>
+        """
+    else:  # Dark Cosmic (Original)
+        return """
+        <style>
+        .stApp {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+        }
+        section[data-testid="stSidebar"] {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1, h2, h3 {
+            color: #00d2ff !important;
+            font-family: 'Helvetica Neue', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+        .stButton>button {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .stButton>button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+        .stTextInput>div>div>input, .stSelectbox>div>div>div {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        </style>
+        """
+
 
 def get_llm():
     try:
         return ChatGroq(
-        model_name="deepseek-r1-distill-llama-70b",
+        model_name="llama-3.3-70b-versatile",
         temperature=0,
         groq_api_key=GROQ_API_KEY
 
@@ -392,8 +493,9 @@ def _format_quiz_with_reveal(quiz_data):
         
         for j, option in enumerate(question["options"]):
             is_correct = j == correct_index
+            js_bool = "true" if is_correct else "false"
             html += f"""
-                    <div class="option" id="option-{i}-{j}" onclick="selectOption({i}, {j}, {is_correct})">
+                    <div class="option" id="option-{i}-{j}" onclick="selectOption({i}, {j}, {js_bool})">
                         <strong>{option_letters[j]}.</strong> {option}
                     </div>
             """
@@ -493,10 +595,16 @@ load_dotenv()
 
 # ⚙️ Streamlit page config
 st.set_page_config(page_title="📚 AI Tutor", layout="wide")
+
 st.title("🎓 Quizify: AI Study Buddy")
 
 # Sidebar for preferences
 with st.sidebar:
+    st.header("🎨 Appearance")
+    selected_theme = st.selectbox("Choose Theme", ["Light Minimalist", "Professional Navy", "Dark Cosmic"])
+    st.markdown(get_theme_css(selected_theme), unsafe_allow_html=True)
+    st.markdown("---")
+    
     st.header("Customize Your Learning")
     subject = st.selectbox("📖 Select Subject",
                            ["Mathematics", "Physics", "Computer Science",
